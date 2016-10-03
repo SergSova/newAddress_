@@ -202,15 +202,24 @@
          * @return array|\yii\db\ActiveRecord[]
          */
         public static function getModelWithActionName($name, $limit = null){
+
             return self::getDb()
                        ->cache(function($db) use ($name, $limit){
-                           return Action::findOne(['name' => $name])
-                                        ->getActionModels()
-                                        ->joinWith('model')
-                                        ->where(['status' => ['active','deposit']])
-                                        ->orderBy(['id' => SORT_DESC])
-                                        ->limit($limit)
-                                        ->all();
+                           $actions = Action::findOne(['name' => $name]);
+                           if(!is_null($actions)){
+                               return $actions
+                                            ->getActionModels()
+                                            ->joinWith('model')
+                                            ->where([
+                                                        'status' => [
+                                                            'active',
+                                                            'deposit'
+                                                        ]
+                                                    ])
+                                            ->orderBy(['id' => SORT_DESC])
+                                            ->limit($limit)
+                                            ->all();
+                           }
                        });
         }
 
