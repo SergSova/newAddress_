@@ -219,6 +219,8 @@
                                             ->orderBy(['id' => SORT_DESC])
                                             ->limit($limit)
                                             ->all();
+                           }else{
+                               return [];
                            }
                        });
         }

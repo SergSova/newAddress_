@@ -96,12 +96,16 @@ JS;
     </div>
 </div>
 <!-- hot box -->
+<?php
+    $hotRealties = Realty::getModelWithActionName('hot', 4);
+    if(!empty($hotRealties)):
+?>
 <div class="section scrollspy no-pad" id="hot-box">
     <h2 class="mypallete white-text center section-title">Горячие предложения недвижимости - Дома</h2>
     <div class="container">
         <div class="row">
             <?php
-                foreach(Realty::getModelWithActionName('hot', 4) as $realty):
+                foreach($hotRealties as $realty):
                     ?>
                     <?= $this->render('_hot_item', ['model' => $realty->model]) ?>
                     <?php
@@ -118,6 +122,7 @@ JS;
         </div>
     </div>
 </div>
+<?php endif;?>
 <!-- videoreview box -->
 <?php if($videoReview): ?>
     <div class="sectionWithBg scrollspy" id="videoreview-box">
