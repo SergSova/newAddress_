@@ -33,32 +33,19 @@
                         'service-call' => ['post'],
                     ],
                 ],
-                [
-                    'class' => PageCache::className(),
-                    'only' => ['index','catalog'],
-                    'duration' => 3600 * 24 * 30,
-                    'dependency' => [
-                        'class' => ChainedDependency::className(),
-                        'dependencies' => [
-                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
-                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
-                        ],
-                    ],
-                ],
-                //                [
-                //                    'class' => HttpCache::className(),
-                //                    'only' => ['realty'],
-                //                    'etagSeed' => function($action, $params){
-                //                        $realty = Realty::findOne(Yii::$app->request->get('id'));
-                //                        return serialize([
-                //                                             $realty->address,
-                //                                             $realty->price,
-                //                                             $realty->status,
-                //                                             $realty->short_description,
-                //                                             $realty->full_description,
-                //                                         ]);
-                //                    },
-                //                ],
+//                [
+//                    'class' => PageCache::className(),
+//                    'only' => ['index','catalog'],
+//                    'duration' => 3600 * 24 * 30,
+//                    'dependency' => [
+//                        'class' => ChainedDependency::className(),
+//                        'dependencies' => [
+//                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
+//                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
+//                        ],
+//                    ],
+//                ],
+
             ];
         }
 
