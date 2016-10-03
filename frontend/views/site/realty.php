@@ -136,14 +136,14 @@ JS;
                                 <img src="<?= $action->imgPath ?>" class="img-thumbnail">
                             </div>
                             <div class="col s9 col m10 col l10 red-text">
-                                <p><strong><?= $action->title ?></strong></p>
+                                <p><?= $action->title ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php endif ?>
 
                 <div class="divider"></div>
-                <p class="description flow-text"><?= $realty->short_description ?></p>
+                <?= $realty->short_description ?>
                 <div class="divider"></div>
                 <?= $this->render('_view'.ucfirst($realtyTypeName), ['model' => $realty->$realtyTypeName]) ?>
             </div>
@@ -152,7 +152,7 @@ JS;
 </div>
 <div class="section">
     <div class="container">
-        <p class="description-r flow-text"><?= $realty->full_description ?></p>
+        <?= $realty->full_description ?>
     </div>
 </div>
 <div class="section map-wrapper fullHeight">

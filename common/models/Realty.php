@@ -189,9 +189,6 @@
         }
 
         public function afterFind(){
-            $mark = new Markdown();
-            $this->short_description = $mark->parse($this->short_description);
-            $this->full_description = $mark->parse($this->full_description);
             $this->getActionForModel($this);
         }
 
