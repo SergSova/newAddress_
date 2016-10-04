@@ -45,7 +45,7 @@
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.ActionModel::tableName()]),
-//                            new ExpressionDependency(['expression'=>Yii::$app->request->get()])
+                            new ExpressionDependency(['expression'=> empty(Yii::$app->request->get())])
                         ],
                     ],
                 ],
