@@ -3,6 +3,8 @@
     namespace common\models;
 
     use Yii;
+    use yii\behaviors\TimestampBehavior;
+    use yii\caching\DbDependency;
     use yii\web\UploadedFile;
 
     /**
@@ -12,6 +14,8 @@
      * @property string  $title
      * @property string  $description
      * @property string  $icon
+     * @property string  $create_at
+     * @property string  $update_at
      */
     class Service extends \yii\db\ActiveRecord{
         /**
@@ -21,6 +25,16 @@
             return 'nad_service';
         }
 
+        public function behaviors(){
+            return [
+                [
+                    'class' => TimestampBehavior::className(),
+                    'createdAtAttribute' => 'create_at',
+                    'updatedAtAttribute' => 'update_at',
+                    'value' => time(),
+                ],
+            ];
+        }
         /**
          * @inheritdoc
          */
@@ -76,5 +90,13 @@
 
         public function getImgPath(){
             return Yii::getAlias('@storageUrl').DIRECTORY_SEPARATOR.$this->icon;
+        }
+
+        public static function getAll(){
+            return self::getDb()
+                       ->cache(function(){
+                           return self::find()
+                                      ->all();
+                       }, 3600 * 24 * 30, new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.self::tableName()]));
         }
     }

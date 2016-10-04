@@ -27,11 +27,11 @@
 
     LandingAsset::register($this);
 
-        $markersData = json_encode(Realty::getMarkerData());
+    $markersData = json_encode(Realty::getMarkerData());
 
-        $mapConfig = json_encode(Yii::$app->params['mapConfig']);
+    $mapConfig = json_encode(Yii::$app->params['mapConfig']);
 
-        $searchModel = new Search();
+    $searchModel = new Search();
 
     $MapInit = <<<JS
 mapInit({$mapConfig});
@@ -51,7 +51,7 @@ JS;
                 </div>
                 <div class="col s12 m8 l9 mypallete-text center-on-small-only">
                     <h1 class="hide-on-med-and-down general-title">Дома от застройщика<br>Новый Адрес</h1>
-<!--                    <h2 class="hide-on-small-only">Мы найдем дом Вашей мечты</h2>-->
+                    <!--                    <h2 class="hide-on-small-only">Мы найдем дом Вашей мечты</h2>-->
                     <p class="flow-text">Дом там, где сердце! Мы поможем Вам и Вашей семье найти место, где вы будете чувствовать себя, как дома!</p>
                 </div>
             </div>
@@ -99,30 +99,30 @@ JS;
 <?php
     $hotRealties = Realty::getModelWithActionName('hot', 4);
     if(!empty($hotRealties)):
-?>
-<div class="section scrollspy no-pad" id="hot-box">
-    <h2 class="mypallete white-text center section-title">Горячие предложения недвижимости - Дома</h2>
-    <div class="container">
-        <div class="row">
-            <?php
-                foreach($hotRealties as $realty):
-                    ?>
-                    <?= $this->render('_hot_item', ['model' => $realty->model]) ?>
+        ?>
+        <div class="section scrollspy no-pad" id="hot-box">
+            <h2 class="mypallete white-text center section-title">Горячие предложения недвижимости - Дома</h2>
+            <div class="container">
+                <div class="row">
                     <?php
-                endforeach;
-            ?>
-        </div>
-        <div class="row">
-            <div class="col s12 m4 offset-m4">
-                <a href="<?= Url::to([
-                                         'site/catalog',
-                                         'Search[action_id]' => Action::findOne(['name' => 'hot'])->id
-                                     ]) ?>" class="btn fullWidth red waves-effect waves-light">Все горячие предложения</a>
+                        foreach($hotRealties as $realty):
+                            ?>
+                            <?= $this->render('_hot_item', ['model' => $realty->model]) ?>
+                            <?php
+                        endforeach;
+                    ?>
+                </div>
+                <div class="row">
+                    <div class="col s12 m4 offset-m4">
+                        <a href="<?= Url::to([
+                                                 'site/catalog',
+                                                 'Search[action_id]' => Action::findOne(['name' => 'hot'])->id
+                                             ]) ?>" class="btn fullWidth red waves-effect waves-light">Все горячие предложения</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<?php endif;?>
+    <?php endif; ?>
 <!-- videoreview box -->
 <?php if($videoReview): ?>
     <div class="sectionWithBg scrollspy" id="videoreview-box">
@@ -171,9 +171,9 @@ JS;
     </div>
 <?php endif; ?>
 <!-- about -->
-<?= $this->render('about')?>
+<?= $this->render('about') ?>
 <!-- contacts box -->
-<?= $this->render('contact', ['feedback' => $feedback])?>
+<?= $this->render('contact', ['feedback' => $feedback]) ?>
 <!-- footer -->
 
 

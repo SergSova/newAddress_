@@ -21,7 +21,9 @@
             <div class="card-image">
                 <div class="action-ico">
                     <?php foreach($model->actions as $action): ?>
-                        <img src="<?= $action->imgPath ?>" class="tooltipped" data-tooltip="<?= $action->title ?>">
+                        <?php if($action->status = 'active'): ?>
+                            <img src="<?= $action->imgPath ?>" class="tooltipped" data-tooltip="<?= $action->title ?>">
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
                 <img class="responsive-img"

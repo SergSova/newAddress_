@@ -13,15 +13,19 @@
     <?= $form->field($model, 'title')
              ->textInput() ?>
     <?= $form->field($model, 'name')
-             ->textInput(['placeholder'=>'hot, discount и т.д.']) ?>
-    <?= $form->field($model, 'description')
-             ->textarea() ?>
-    <?= $form->field($model, 'dateS')->input('date') ?>
-    <?= $form->field($model, 'dateE')->input('date') ?>
+             ->textInput(['placeholder' => 'hot, discount и т.д.']) ?>
+    <?= $form->field($model, 'status')
+             ->dropDownList([
+                                "active"=>"active",
+                                "inactive"=>"inactive",
+                                "blocked"=>"blocked"
+                            ]) ?>
+    <?= $form->field($model, 'dateS') ?>
+    <?= $form->field($model, 'dateE') ?>
     <?= $form->field($model, 'icon')
              ->fileInput() ?>
     <?= $form->field($model, 'value')
-             ->textarea(['placeholder'=>'Запись в виде JSON для discount {"attr":"price","discount":20} для hot {"limit":4}']) ?>
+             ->textarea(['placeholder' => 'Запись в виде JSON для discount {"attr":"price","discount":20} для hot {"limit":4}']) ?>
     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <?php ActiveForm::end() ?>
 </div>

@@ -3,6 +3,11 @@
     namespace common\models;
 
     use Yii;
+    use yii\behaviors\TimestampBehavior;
+    use yii\caching\DbDependency;
+    use yii\db\Expression;
+    use yii\debug\models\search\Db;
+    use yii\helpers\ArrayHelper;
     use yii\web\UploadedFile;
 
     /**
@@ -11,7 +16,6 @@
      * @property integer       $id
      * @property string        $title
      * @property string        $name
-     * @property string        $description
      * @property string        $icon
      * @property integer       $date_start
      * @property integer       $date_end
@@ -34,6 +38,18 @@
             return 'nad_action';
         }
 
+        public function behaviors(){
+            return [
+                [
+                    'class' => TimestampBehavior::className(),
+                    'createdAtAttribute' => 'create_at',
+                    'updatedAtAttribute' => 'update_at',
+                    'value' => time(),
+                ],
+            ];
+        }
+
+
         /**
          * @inheritdoc
          */
@@ -43,19 +59,20 @@
                     [
                         'title',
                         'name',
-                        'description',
-                        'date_start',
-                        'date_end',
-                        'value'
+                        'value',
                     ],
                     'required'
                 ],
                 [
                     [
-                        'description',
                         'status'
                     ],
                     'string'
+                ],
+                [
+                    'status',
+                    'default',
+                    'value' => 'active'
                 ],
                 [
                     [
@@ -86,6 +103,20 @@
                     'max' => 255
                 ],
                 [
+                    [
+                        'dateS',
+                    ],
+                    'default',
+                    'value' => date(DATE_ATOM, 0)
+                ],
+                [
+                    [
+                        'dateE',
+                    ],
+                    'default',
+                    'value' => date(DATE_ATOM, strtotime('12-12-2036'))
+                ],
+                [
                     ['title'],
                     'unique'
                 ],
@@ -100,15 +131,17 @@
                 'id' => 'ID',
                 'title' => 'Название',
                 'name' => 'Name',
-                'description' => 'Описание',
                 'icon' => 'Иконка',
                 'date_start' => 'Дата начала',
                 'date_end' => 'Дата окончания',
+                'dateS' => 'Дата начала',
+                'dateE' => 'Дата окончания',
                 'value' => 'Значение',
-                'status' => 'Status',
+                'status' => 'Статус',
                 'imgPath' => 'Иконка',
             ];
         }
+
 
         /**
          * @return \yii\db\ActiveQuery
@@ -128,6 +161,13 @@
         public function afterFind(){
             $this->dateS = date('m/d/Y', $this->date_start);
             $this->dateE = date('m/d/Y', $this->date_end);
+
+            if($this->date_end <= time() && $this->status == 'active'){
+                $this->status = 'inactive';
+                if($this->save(false)){
+                    Yii::$app->session->addFlash('info', 'акция '.$this->title.' закончилась');
+                }
+            }
         }
 
         public function beforeSave($insert){
@@ -168,11 +208,14 @@
             return Yii::getAlias('@wwwUrl').DIRECTORY_SEPARATOR.$this->icon;
         }
 
+        /**
+         * @return mixed Return caching data
+         */
         public static function getAll(){
             return self::getDb()
-                         ->cache(function(){
-                             return self::find()
-                                          ->all();
-                         });
+                       ->cache(function(){
+                           return self::find()
+                                      ->all();
+                       }, 3600 * 24 * 30, new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.self::tableName()]));
         }
     }

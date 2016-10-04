@@ -131,14 +131,16 @@ JS;
                     <div class="divider"></div>
                     <h2 class="red-text">Акции</h2>
                     <?php foreach($realty->actions as $action): ?>
-                        <div class="row">
-                            <div class="col s3 col m2 col l2">
-                                <img src="<?= $action->imgPath ?>" class="img-thumbnail">
+                        <?php if($action->status = 'active'): ?>
+                            <div class="row">
+                                <div class="col s3 col m2 col l2">
+                                    <img src="<?= $action->imgPath ?>" class="img-thumbnail">
+                                </div>
+                                <div class="col s9 col m10 col l10 red-text">
+                                    <p><strong><?= $action->title ?></strong></p>
+                                </div>
                             </div>
-                            <div class="col s9 col m10 col l10 red-text">
-                                <p><?= $action->title ?></p>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif ?>
 

@@ -16,7 +16,6 @@ class m160919_065244_create_action_table extends Migration
             'id' => $this->primaryKey(),
             'title'=>$this->string(150)->notNull()->unique()->comment('Название'),
             'name'=>$this->string(50)->notNull(),
-            'description'=>$this->text()->notNull()->comment('Описание'),
             'icon'=>$this->string()->defaultValue('')->comment('Иконка'),
             'date_start'=>$this->integer()->notNull()->comment('Дата начала'),
             'date_end'=>$this->integer()->notNull()->comment('Дата окончания'),
