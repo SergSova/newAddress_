@@ -13,7 +13,6 @@
     use Yii;
     use yii\caching\ChainedDependency;
     use yii\caching\DbDependency;
-    use yii\caching\ExpressionDependency;
     use yii\filters\PageCache;
     use yii\web\Controller;
     use yii\filters\VerbFilter;
@@ -49,7 +48,6 @@
                     ],
                     'variations' => [isset(Yii::$app->request->queryParams) ? Yii::$app->request->queryParams : null]
                 ],
-
             ];
         }
 
