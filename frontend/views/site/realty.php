@@ -10,6 +10,7 @@
     use macgyer\yii2materializecss\widgets\form\ActiveForm;
     use yii\helpers\Url;
     use yii\web\View;
+    use yii\widgets\MaskedInput;
     use yii\widgets\Pjax;
 
     $this->title = 'Realty '.$realty->id;
@@ -186,7 +187,7 @@ JS;
                                        ]) ?>
         <div class="row">
             <?= $rcf->field($requestCall, 'phone')
-                    ->widget(\yii\widgets\MaskedInput::className(), ['mask' => '+7 (999) 999 99 99']) ?>
+                    ->widget(MaskedInput::className(), Yii::$app->params['phoneMask']) ?>
             <?= $rcf->field($requestCall, 'name') ?>
             <?= $rcf->field($requestCall, 'subject')
                     ->hiddenInput()
