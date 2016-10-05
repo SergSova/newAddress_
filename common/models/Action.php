@@ -13,19 +13,19 @@
     /**
      * This is the model class for table "nad_action".
      *
-     * @property integer       $id
-     * @property string        $title
-     * @property string        $name
-     * @property string        $icon
-     * @property integer       $date_start
-     * @property integer       $date_end
-     * @property string        $value
-     * @property string        $status
-     * @property integer       $create_at
-     * @property integer       $update_at
+     * @property integer $id
+     * @property string $title
+     * @property string $name
+     * @property string $icon
+     * @property integer $date_start
+     * @property integer $date_end
+     * @property string $value
+     * @property string $status
+     * @property integer $create_at
+     * @property integer $update_at
      *
      * @property ActionModel[] $actionModels
-     * @property Realty[]      $models
+     * @property Realty[] $models
      */
     class Action extends \yii\db\ActiveRecord{
         public $dateS;
@@ -123,6 +123,19 @@
             ];
         }
 
+        public function scenarios(){
+            return [
+                'default' => [
+                    'title',
+                    'name',
+                    'status',
+                    'dateS',
+                    'dateE',
+                    'value'
+                ]
+            ];
+        }
+
         /**
          * @inheritdoc
          */
@@ -174,31 +187,16 @@
             $this->date_start = strtotime($this->dateS);
             $this->date_end = strtotime($this->dateE);
 
-            return parent::beforeSave($insert);
-        }
-
-        /**
-         * Method to upload icon for action
-         * @return bool
-         */
-        public function upload(){
-            $file = UploadedFile::getInstance($this, 'icon');
-            if($file){
+            if(!empty($_FILES) && $file = UploadedFile::getInstance($this, 'icon')){
                 $basePath = Yii::getAlias('@wwwRoot');
                 $fileName = 'img/'.$file->name;
-                if(file_exists($basePath.DIRECTORY_SEPARATOR.$fileName)){
-                    $this->icon = $fileName;
-
-                    return true;
-                }else{
-                    $this->icon = $fileName;
-
-                    return $file->saveAs($basePath.DIRECTORY_SEPARATOR.$fileName);
+                if(!file_exists($basePath.DIRECTORY_SEPARATOR.$fileName)){
+                    $file->saveAs($basePath.DIRECTORY_SEPARATOR.$fileName);
                 }
+                $this->icon = $fileName;
             }
-            $this->icon = $this->oldAttributes['icon'];
 
-            return true;
+            return parent::beforeSave($insert);
         }
 
         /**

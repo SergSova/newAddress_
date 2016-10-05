@@ -21,7 +21,7 @@
             $model = new Action();
             $model->status = 'inactive';
 
-            if($model->load(Yii::$app->request->post()) && $model->upload() && $model->save()){
+            if($model->load(Yii::$app->request->post())&& $model->save()){
                 return $this->redirect([
                                            'view',
                                            'id' => $model->id
@@ -34,7 +34,7 @@
         public function actionUpdate($id){
             $model = Action::findOne($id);
 
-            if($model->load(Yii::$app->request->post()) && $model->upload() && $model->save()){
+            if($model->load(Yii::$app->request->post()) && $model->save()){
                 return $this->redirect([
                                            'view',
                                            'id' => $model->id

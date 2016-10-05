@@ -35,6 +35,7 @@
                 ],
             ];
         }
+
         /**
          * @inheritdoc
          */
@@ -74,15 +75,25 @@
             ];
         }
 
+        public function scenarios(){
+            return [
+                'default' => [
+                    'title',
+                    'description'
+                ]
+            ];
+        }
+
         public function beforeSave($insert){
-            if(isset($_FILES) && $this->icon = UploadedFile::getInstance($this, 'icon')){
+            if(!empty($_FILES) && $icon = UploadedFile::getInstance($this, 'icon')){
                 if(!is_dir(Yii::getAlias('@storage').DIRECTORY_SEPARATOR.'service')){
                     mkdir(Yii::getAlias('@storage').DIRECTORY_SEPARATOR.'service', 0777, true);
                 }
-                $filename = 'service'.DIRECTORY_SEPARATOR.$this->icon->baseName.'.'.$this->icon->extension;
-                if($this->icon->saveAs(Yii::getAlias('@storage').DIRECTORY_SEPARATOR.$filename)){
-                    $this->icon = $filename;
+                $filename = 'service'.DIRECTORY_SEPARATOR.$icon->name;
+                if(!file_exists(Yii::getAlias('@storage').DIRECTORY_SEPARATOR.$filename)){
+                    $icon->saveAs(Yii::getAlias('@storage').DIRECTORY_SEPARATOR.$filename);
                 }
+                $this->icon = $filename;
             }
 
             return parent::beforeSave($insert);
