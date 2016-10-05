@@ -36,7 +36,7 @@
                     'class' => PageCache::className(),
                     'only' => [
                         'index',
-//                        'catalog'
+                        'catalog'
                     ],
                     'duration' => 3600 * 24 * 30,
                     'dependency' => [
@@ -45,9 +45,9 @@
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
                             new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.ActionModel::tableName()]),
-                            new ExpressionDependency(['expression'=> empty(Yii::$app->request->get())])
                         ],
                     ],
+                    'variations' => [isset(Yii::$app->request->queryParams) ? Yii::$app->request->queryParams : null]
                 ],
 
             ];
@@ -142,6 +142,7 @@
             if(is_null($id)){
                 return $this->render('service', ['model' => Service::getAll()]);
             }
+
             return $this->render('service_item', ['model' => Service::findOne($id)]);
         }
 
