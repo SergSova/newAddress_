@@ -50,21 +50,27 @@
                     'variations' => [isset(Yii::$app->request->queryParams) ? Yii::$app->request->queryParams : null]
                 ],
                 [
-                    'class'=>HttpCache::className(),
-                    'only'=>['realty'],
-                    'etagSeed'=>function(){
+                    'class' => HttpCache::className(),
+                    'only' => ['realty'],
+                    'etagSeed' => function(){
                         $model = Realty::findOne(Yii::$app->request->get('id'));
+
                         return serialize([
-                            $model->update_at,
-                            $model->getActions()->select('name')->column()
+                                             $model->update_at,
+                                             $model->getActions()
+                                                   ->select('name')
+                                                   ->column()
                                          ]);
                     }
                 ],
                 [
-                    'class'=>HttpCache::className(),
-                    'only'=>['service'],
-                    'lastModified'=>function(){
-                        return Service::find()->max('update_at');
+                    'class' => HttpCache::className(),
+                    'only' => ['service'],
+                    'lastModified' => function(){
+                        $modified = Service::find()
+                                           ->max('update_at');
+
+                        return $modified ? $modified : time();
                     }
                 ],
             ];
