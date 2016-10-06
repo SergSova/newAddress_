@@ -146,7 +146,7 @@ JS;
                 <?php endif ?>
 
                 <div class="divider"></div>
-                <?= $realty->short_description ?>
+                <p class="flow-text"><?= $realty->br_short_description ?></p>
                 <div class="divider"></div>
                 <?= $this->render('_view'.ucfirst($realtyTypeName), ['model' => $realty->$realtyTypeName]) ?>
             </div>
@@ -155,7 +155,7 @@ JS;
 </div>
 <div class="section">
     <div class="container">
-        <?= $realty->full_description ?>
+        <p class="flow-text text-justify"><?= $realty->br_full_description ?></p>
     </div>
 </div>
 <div class="section map-wrapper fullHeight">

@@ -283,4 +283,11 @@
                                       ->all();
                        }, 3600 * 24 * 30, new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.self::tableName()]));
         }
+
+        public function getBr_short_description(){
+            return nl2br($this->short_description);
+        }
+        public function getBr_full_description(){
+            return nl2br($this->full_description);
+        }
     }
