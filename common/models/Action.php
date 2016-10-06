@@ -13,19 +13,19 @@
     /**
      * This is the model class for table "nad_action".
      *
-     * @property integer $id
-     * @property string $title
-     * @property string $name
-     * @property string $icon
-     * @property integer $date_start
-     * @property integer $date_end
-     * @property string $value
-     * @property string $status
-     * @property integer $create_at
-     * @property integer $update_at
+     * @property integer       $id
+     * @property string        $title
+     * @property string        $name
+     * @property string        $icon
+     * @property integer       $date_start
+     * @property integer       $date_end
+     * @property string        $value
+     * @property string        $status
+     * @property integer       $create_at
+     * @property integer       $update_at
      *
      * @property ActionModel[] $actionModels
-     * @property Realty[] $models
+     * @property Realty[]      $models
      */
     class Action extends \yii\db\ActiveRecord{
         public $dateS;
@@ -41,10 +41,10 @@
         public function behaviors(){
             return [
                 [
-                    'class' => TimestampBehavior::className(),
+                    'class'              => TimestampBehavior::className(),
                     'createdAtAttribute' => 'create_at',
                     'updatedAtAttribute' => 'update_at',
-                    'value' => time(),
+                    'value'              => time(),
                 ],
             ];
         }
@@ -55,71 +55,16 @@
          */
         public function rules(){
             return [
-                [
-                    [
-                        'title',
-                        'name',
-                        'value',
-                    ],
-                    'required'
-                ],
-                [
-                    [
-                        'status'
-                    ],
-                    'string'
-                ],
-                [
-                    'status',
-                    'default',
-                    'value' => 'active'
-                ],
-                [
-                    [
-                        'date_start',
-                        'date_end'
-                    ],
-                    'integer'
-                ],
-                [
-                    ['title'],
-                    'string',
-                    'max' => 150
-                ],
-                [
-                    ['name'],
-                    'string',
-                    'max' => 50
-                ],
-                [
-                    [
-                        'icon',
-                        'value',
-                        'dateS',
-                        'dateE',
-
-                    ],
-                    'string',
-                    'max' => 255
-                ],
-                [
-                    [
-                        'dateS',
-                    ],
-                    'default',
-                    'value' => date(DATE_ATOM, 0)
-                ],
-                [
-                    [
-                        'dateE',
-                    ],
-                    'default',
-                    'value' => date(DATE_ATOM, strtotime('12-12-2036'))
-                ],
-                [
-                    ['title'],
-                    'unique'
-                ],
+                [['title', 'name',], 'required',],
+                ['status', 'string',],
+                ['status', 'default', 'value' => 'active',],
+                [['date_start', 'date_end',], 'integer',],
+                ['title', 'string', 'max' => 150,],
+                ['name', 'string', 'max' => 50,],
+                [['icon', 'value', 'dateS', 'dateE'], 'string', 'max' => 255,],
+                ['dateS', 'default', 'value' => date(DATE_ATOM, time()),],
+                ['dateE', 'default', 'value' => date(DATE_ATOM, strtotime('12-12-2036')),],
+                ['title', 'unique',],
             ];
         }
 
@@ -131,8 +76,8 @@
                     'status',
                     'dateS',
                     'dateE',
-                    'value'
-                ]
+                    'value',
+                ],
             ];
         }
 
@@ -141,17 +86,17 @@
          */
         public function attributeLabels(){
             return [
-                'id' => 'ID',
-                'title' => 'Название',
-                'name' => 'Name',
-                'icon' => 'Иконка',
+                'id'         => 'ID',
+                'title'      => 'Название',
+                'name'       => 'Name',
+                'icon'       => 'Иконка',
                 'date_start' => 'Дата начала',
-                'date_end' => 'Дата окончания',
-                'dateS' => 'Дата начала',
-                'dateE' => 'Дата окончания',
-                'value' => 'Значение',
-                'status' => 'Статус',
-                'imgPath' => 'Иконка',
+                'date_end'   => 'Дата окончания',
+                'dateS'      => 'Дата начала',
+                'dateE'      => 'Дата окончания',
+                'value'      => 'Значение',
+                'status'     => 'Статус',
+                'imgPath'    => 'Иконка',
             ];
         }
 
@@ -186,6 +131,10 @@
         public function beforeSave($insert){
             $this->date_start = strtotime($this->dateS);
             $this->date_end = strtotime($this->dateE);
+
+            if($this->name == 'discount'){
+                $this->value = '{"attr":"price","discount":'.$this->value.'}';
+            }
 
             if(!empty($_FILES) && $file = UploadedFile::getInstance($this, 'icon')){
                 $basePath = Yii::getAlias('@wwwRoot');

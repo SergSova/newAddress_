@@ -34,10 +34,7 @@
                 ],
                 [
                     'class' => PageCache::className(),
-                    'only' => [
-                        'index',
-                        'catalog'
-                    ],
+                    'only' => ['index', 'catalog'],
                     'duration' => 3600 * 24 * 30,
                     'dependency' => [
                         'class' => ChainedDependency::className(),

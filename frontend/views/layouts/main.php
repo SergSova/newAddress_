@@ -118,7 +118,6 @@
 </header>
 
 <main class="content">
-    <?= Alert::widget() ?>
     <?= $content ?>
 </main>
 

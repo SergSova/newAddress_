@@ -16,12 +16,12 @@
     <div class="card catalog-item hoverable">
         <a href="<?= Url::to([
                                  'site/realty',
-                                 'id' => $model->id
+                                 'id' => $model->id,
                              ]) ?>" class="black-text">
             <div class="card-image">
                 <div class="action-ico">
                     <?php foreach($model->actions as $action): ?>
-                        <?php if($action->status = 'active'): ?>
+                        <?php if($action->status == 'active'): ?>
                             <img src="<?= $action->imgPath ?>" class="tooltipped" data-tooltip="<?= $action->title ?>">
                         <?php endif; ?>
                     <?php endforeach; ?>
