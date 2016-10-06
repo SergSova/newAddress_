@@ -1,10 +1,9 @@
 <?php
 
     /* @var $this yii\web\View */
-    use yii\caching\FileDependency;
 
 ?>
-<?php $this->beginCache('about', ['dependency' => new FileDependency(['fileName' => __DIR__.'/about.php'])]) ?>
+<?php $this->beginCache('about', ['dependency' => ['class' => 'yii\caching\FileDependency', 'fileName' => __DIR__.'/about.php']]) ?>
     <div class="section scrollspy no-pad" id="about">
         <h2 class="mypallete white-text center section-title">Информация о нашем Агентстве недвижимости</h2>
         <div class="container">
