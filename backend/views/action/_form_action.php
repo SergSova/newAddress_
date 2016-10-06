@@ -6,6 +6,8 @@
     use yii\bootstrap\ActiveForm;
     use yii\bootstrap\Html;
 
+    $action_val = json_decode($model->value);
+    $val = $action_val->discount ? $action_val->discount : $model->value;
 ?>
 
 <div class="container">
@@ -16,16 +18,19 @@
              ->textInput(['placeholder' => 'hot, discount и т.д.']) ?>
     <?= $form->field($model, 'status')
              ->dropDownList([
-                                "active"=>"active",
-                                "inactive"=>"inactive",
-                                "blocked"=>"blocked"
+                                "active"   => "active",
+                                "inactive" => "inactive",
+                                "blocked"  => "blocked",
                             ]) ?>
     <?= $form->field($model, 'dateS') ?>
     <?= $form->field($model, 'dateE') ?>
     <?= $form->field($model, 'icon')
              ->fileInput() ?>
     <?= $form->field($model, 'value')
-             ->textarea(['placeholder' => 'Запись в виде JSON для discount {"attr":"price","discount":20} для hot {"limit":4}']) ?>
+             ->textarea([
+                            'placeholder' => 'Запись в виде JSON или для "discount" % скидки',
+                            'value'       => $val,
+                        ]) ?>
     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <?php ActiveForm::end() ?>
 </div>

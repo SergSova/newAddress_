@@ -16,16 +16,16 @@
     <div class="card catalog-item hoverable">
         <a href="<?= Url::to([
                                  'site/realty',
-                                 'id' => $model->id
+                                 'id' => $model->id,
                              ]) ?>" class="black-text">
             <div class="card-image">
-                <div class="action-ico">
-                    <?php foreach($model->actions as $action): ?>
-                        <?php if($action->status = 'active'): ?>
+                <?php foreach($model->actions as $action): ?>
+                    <?php if($action->status == 'active'): ?>
+                        <div class="action-ico">
                             <img src="<?= $action->imgPath ?>" class="tooltipped" data-tooltip="<?= $action->title ?>">
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 <img class="responsive-img"
                      src="<?= ($model->$realtyType->cover) ? Yii::getAlias('@storageUrl').'/'.$model->$realtyType->cover : Url::to('@web/img/nophoto.jpg') ?>">
                 <div class="card-title">

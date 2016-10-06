@@ -5,8 +5,11 @@
      * @var \frontend\models\ContactForm   $feedback
      */
     use macgyer\yii2materializecss\widgets\form\ActiveForm;
+    use yii\caching\FileDependency;
 
 ?>
+<?php $this->beginCache('about', ['dependency' => new FileDependency(['fileName' => __DIR__.'/contact.php'])]) ?>
+
 <div class="sectionWithBg fullHeight scrollspy" id="contacts">
     <div class="sectionWithBg-wrap valign-wrapper">
         <div class="container valign">
@@ -74,3 +77,4 @@
         </div>
     </div>
 </div>
+<?php $this->endCache()?>
