@@ -33,7 +33,7 @@
                 <p class="subtitle"><?= $model->address ?></p>
             </div>
             <div class="card-description">
-                <?= $model->short_description ?>
+                <p><?= $model->br_short_description ?></p>
             </div>
         </div>
         <a href="<?= Url::to([

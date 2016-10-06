@@ -39,7 +39,7 @@
                     <p class="subtitle"><?= $model->address ?></p>
                 </div>
                 <div class="card-description">
-                    <?= $model->short_description ?>
+                    <p><?= $model->br_short_description ?></p>
                 </div>
             </div>
             <button type="button" class="btn mypallete fullWidth waves-effect waves-light">Подробнее</button>
