@@ -252,6 +252,8 @@ html {
     float: left;
     height: 500px;
     position: relative;
+}
+.filter-box{
     padding: 0 0.75rem;
 }
 
