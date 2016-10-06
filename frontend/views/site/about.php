@@ -3,7 +3,7 @@
     /* @var $this yii\web\View */
 
 ?>
-<?php $this->beginCache('about', ['dependency' => ['class' => 'yii\caching\FileDependency', 'fileName' => __DIR__.'/about.php']]) ?>
+<?php if($this->beginCache('about', ['dependency' => ['class' => 'yii\caching\FileDependency', 'fileName' => __DIR__.'/about.php']])): ?>
     <div class="section scrollspy no-pad" id="about">
         <h2 class="mypallete white-text center section-title">Информация о нашем Агентстве недвижимости</h2>
         <div class="container">
@@ -64,4 +64,5 @@
 
         </div>
     </div>
-<?php $this->endCache() ?>
+    <?php $this->endCache() ?>
+<?php endif; ?>

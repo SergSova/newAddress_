@@ -19,13 +19,13 @@
                                  'id' => $model->id,
                              ]) ?>" class="black-text">
             <div class="card-image">
-                <?php foreach($model->actions as $action): ?>
-                    <?php if($action->status == 'active'): ?>
-                        <div class="action-ico">
+                <div class="action-ico">
+                    <?php foreach($model->actions as $action): ?>
+                        <?php if($action->status == 'active'): ?>
                             <img src="<?= $action->imgPath ?>" class="tooltipped" data-tooltip="<?= $action->title ?>">
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
                 <img class="responsive-img"
                      src="<?= ($model->$realtyType->cover) ? Yii::getAlias('@storageUrl').'/'.$model->$realtyType->cover : Url::to('@web/img/nophoto.jpg') ?>">
                 <div class="card-title">
