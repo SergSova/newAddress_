@@ -8,7 +8,6 @@
 
 ?>
 <?php $this->beginCache('contact', ['dependency' => ['class' => 'yii\caching\FileDependency', 'fileName' => __DIR__.'/contact.php']]) ?>
-
     <div class="sectionWithBg fullHeight scrollspy" id="contacts">
         <div class="sectionWithBg-wrap valign-wrapper">
             <div class="container valign">
