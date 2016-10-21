@@ -5,5 +5,5 @@
     Yii::setAlias('@console', dirname(dirname(__DIR__)).'/console');
     Yii::setAlias('@storage', dirname(dirname(__DIR__)).'/www/storage');
     Yii::setAlias('@wwwRoot', dirname(dirname(__DIR__)).'/www');
-    Yii::setAlias('@wwwUrl', 'http://newaddress.local/');
-    Yii::setAlias('@storageUrl', 'http://newaddress.local/storage');
+    Yii::setAlias('@wwwUrl', 'http://newadres.house/');
+    Yii::setAlias('@storageUrl', 'http://newadres.house/storage');
