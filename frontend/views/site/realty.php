@@ -13,25 +13,32 @@
     use yii\widgets\MaskedInput;
     use yii\widgets\Pjax;
 
-    $this->title = 'Realty '.$realty->id;
+    $name = $realty->address;
+//    $name = substr($name, strpos($name, ' ')+1);
+//    $name = substr($name, 0, strpos($name, ' '));
+//    $name = str_replace('.','',$name);
+
+    preg_match('/[\s|.]([[:upper:]]\w+)/u',$name, $match);
+//todo заменить окончание слова
+    $this->title = 'Купить '.$realty->realtyType->name.' '.$match[1].' от застройщика';
     RealtyAsset::register($this);
 
     $coord = explode(';', $realty->map_coord);
     $marker = [
         'position' => [
             'lat' => $coord[0] * 1,
-            'lng' => $coord[1] * 1
-        ]
+            'lng' => $coord[1] * 1,
+        ],
     ];
     $marker = json_encode($marker);
 
     $mapConfig = [
-        'center' => [
+        'center'    => [
             'lat' => $coord[0] * 1,
-            'lng' => $coord[1] * 1
+            'lng' => $coord[1] * 1,
         ],
-        'zoom' => 14,
-        'draggable' => false
+        'zoom'      => 14,
+        'draggable' => false,
     ];
     $mapConfig = json_encode($mapConfig);
     $script = <<<JS
@@ -47,9 +54,9 @@ JS;
         $dir = Yii::getAlias('@storageUrl').'/'.substr($value, 0, $delimPos + 1);
         $photoName = substr($value, $delimPos + 1);
         $photos[$key] = [
-            'base' => $dir.$photoName,
+            'base'  => $dir.$photoName,
             'thumb' => $dir.'thumb_'.$photoName,
-            'full' => $dir.'full_'.$photoName
+            'full'  => $dir.'full_'.$photoName,
         ];
     }
 ?>
@@ -173,17 +180,17 @@ JS;
         <h4>Заказать звонок</h4>
         <?php Pjax::begin([
                               'enablePushState' => false,
-                              'id' => 'callback-form-wrap'
+                              'id'              => 'callback-form-wrap',
                           ]) ?>
         <?php $rcf = ActiveForm::begin([
                                            'action' => [
                                                'site/feedback',
-                                               'm' => 'callback'
+                                               'm' => 'callback',
                                            ],
 
                                            'options' => [
-                                               'data-pjax' => true
-                                           ]
+                                               'data-pjax' => true,
+                                           ],
                                        ]) ?>
         <div class="row">
             <?= $rcf->field($requestCall, 'phone')
@@ -208,17 +215,17 @@ JS;
         <h4>Оставить заявку</h4>
         <?php Pjax::begin([
                               'enablePushState' => false,
-                              'id' => 'feedback-form-wrap'
+                              'id'              => 'feedback-form-wrap',
                           ]) ?>
         <?php $requestEmailForm = ActiveForm::begin([
                                                         'action' => [
                                                             'site/feedback',
-                                                            'm' => 'feedback'
+                                                            'm' => 'feedback',
                                                         ],
 
                                                         'options' => [
-                                                            'data-pjax' => true
-                                                        ]
+                                                            'data-pjax' => true,
+                                                        ],
                                                     ]) ?>
         <div class="row">
             <?= $requestEmailForm->field($requestEmail, 'subject')

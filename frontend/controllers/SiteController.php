@@ -60,16 +60,16 @@
                                          ]);
                     }
                 ],
-                // [
-                //     'class' => HttpCache::className(),
-                //     'only' => ['service'],
-                //     'lastModified' => function(){
-                //         $modified = Service::find()
-                //                            ->max('update_at');
+                [
+                    'class' => HttpCache::className(),
+                    'only' => ['service'],
+                    'lastModified' => function(){
+                        $modified = Service::find()
+                                           ->max('update_at');
 
-                //         return $modified ? $modified : time();
-                //     }
-                // ],
+                        return $modified ? $modified : time();
+                    }
+                ],
             ];
         }
 

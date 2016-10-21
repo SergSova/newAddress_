@@ -3,7 +3,7 @@ if($(window).height() > $('#filter-box').height() + $('#filter-box').offset().to
     $('#filter-box .filter-box').pushpin({
         top: $('#filter-box').offset().top,
         offset: $('#filter-box').offset().top,
-        bottom: $('body').height() - $('#filter-box').height()
+        bottom: $('#seo-box').offset().top - $('#filter-box').height() - 130
     });
 }
 
