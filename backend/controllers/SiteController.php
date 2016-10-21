@@ -109,6 +109,8 @@
 
                 return $this->goHome();
             }
+
+            echo $model->mailerError;
         }
 
         public function actionRequestPasswordReset(){
