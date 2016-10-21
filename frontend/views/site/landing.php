@@ -70,7 +70,7 @@ JS;
 </div>
 <!-- map box -->
 <div class="section scrollspy fullHeight no-padding" id="map-box">
-    <h2 class="mypallete white-text center map-header section-title">Дома от застройщика - "Новый Адрес"</h2>
+    <h2 class="mypallete white-text center map-header section-title">Наши дома в Подмосковье</h2>
     <div class="map-wrapper">
         <div class="map-container hide-on-small-only" id="map"></div>
         <div class="map-filter">

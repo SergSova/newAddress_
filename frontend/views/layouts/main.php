@@ -12,19 +12,20 @@
     use macgyer\yii2materializecss\widgets\Alert;
     use yii\helpers\Url;
 
-
-
     AppAsset::register($this);
 
     $feedbackModel = new Feedback();
     $callbackModel = new Callback();
 
-    $this->registerMetaTag([
-                               'name' => 'yandex-verification',
-                               'content' => 'fe1be1f85741d159'
-                           ]);
 
-    $this->registerJs('(function (d, w, c) {(w[c] = w[c] || []).push(function() {try {w.yaCounter39973625 = new Ya.Metrika({id:39973625, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});} catch(e) { }});var n = d.getElementsByTagName("script")[0],s = d.createElement("script"),f = function () { n.parentNode.insertBefore(s, n); };s.type = "text/javascript";s.async = true;s.src = "https://mc.yandex.ru/metrika/watch.js";if (w.opera == "[object Opera]") {d.addEventListener("DOMContentLoaded", f, false);} else { f(); }})(document, window, "yandex_metrika_callbacks");', \yii\web\View::POS_HEAD);
+    if(YII_ENV == 'prod'){
+        $this->registerMetaTag([
+                                   'name'    => 'yandex-verification',
+                                   'content' => 'fe1be1f85741d159',
+                               ]);
+        $this->registerJs('(function (d, w, c) {(w[c] = w[c] || []).push(function() {try {w.yaCounter39973625 = new Ya.Metrika({id:39973625, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});} catch(e) { }});var n = d.getElementsByTagName("script")[0],s = d.createElement("script"),f = function () { n.parentNode.insertBefore(s, n); };s.type = "text/javascript";s.async = true;s.src = "https://mc.yandex.ru/metrika/watch.js";if (w.opera == "[object Opera]") {d.addEventListener("DOMContentLoaded", f, false);} else { f(); }})(document, window, "yandex_metrika_callbacks");',
+                          \yii\web\View::POS_HEAD);
+    }
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -36,7 +37,9 @@
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <noscript><div><img src="https://mc.yandex.ru/watch/39973625" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/39973625" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
     <?php $this->head() ?>
 </head>
 
@@ -46,52 +49,52 @@
 <header class="page-header">
     <?php
         NavBar::begin([
-                          'brandLabel' => '<img src="'.Url::to('@web/img/small-logo.png').'" class="responsive-img">',
-                          'brandUrl' => Yii::$app->homeUrl,
-                          'fixed' => true,
+                          'brandLabel'     => '<img src="'.Url::to('@web/img/small-logo.png').'" class="responsive-img">',
+                          'brandUrl'       => Yii::$app->homeUrl,
+                          'fixed'          => true,
                           'wrapperOptions' => [
-                              'class' => 'container'
+                              'class' => 'container',
                           ],
-                          'options' => ['class' => 'mypallete lighten']
+                          'options'        => ['class' => 'mypallete lighten'],
                       ]);
 
         $menuItems = [
             [
                 'label' => 'Каталог',
-                'url' => ['site/catalog']
+                'url'   => ['site/catalog'],
             ],
             [
                 'label' => 'Услуги',
-                'url' => [
-                    'site/service'
+                'url'   => [
+                    'site/service',
                 ],
             ],
             [
                 'label' => 'Видео Обзоры',
-                'url' => ['/site/video-review']
+                'url'   => ['/site/video-review'],
             ],
             [
                 'label' => 'Технология',
-                'url' => [
+                'url'   => [
                     'site/technology',
                 ],
             ],
             [
-                'label' => 'О нас',
-                'url' => [
+                'label'   => 'О нас',
+                'url'     => [
                     'site/index',
                     '#' => 'about',
                 ],
-                'options' => ['class' => 'scrollTo']
+                'options' => ['class' => 'scrollTo'],
 
             ],
             [
-                'label' => 'Kонтакты',
-                'url' => [
+                'label'   => 'Kонтакты',
+                'url'     => [
                     'site/index',
-                    '#' => 'contacts'
+                    '#' => 'contacts',
                 ],
-                'options' => ['class' => 'scrollTo']
+                'options' => ['class' => 'scrollTo'],
             ],
         ];
 
@@ -108,9 +111,9 @@
         echo Nav::widget([
                              'options' => [
                                  'class' => 'hide-on-med-and-down site-nav',
-                                 'id' => 'general-menu'
+                                 'id'    => 'general-menu',
                              ],
-                             'items' => $menuItems,
+                             'items'   => $menuItems,
                          ]);
 
         NavBar::end();
@@ -124,14 +127,14 @@
 <div class="modal" id="modalCall">
     <div class="modal-content">
         <i class="material-icons right close-modal-but" data-target="#modalCall">close</i>
-        <h4>Заказать обратный звонок</h4>
+        <p class="modal-header">Заказать обратный звонок</p>
         <?= $this->render('../site/_formCallback', ['model' => $callbackModel]) ?>
     </div>
 </div>
 <div class="modal" id="modalEmail">
     <div class="modal-content">
         <i class="material-icons right close-modal-but" data-target="#modalEmail">close</i>
-        <h4>Напишите нам</h4>
+        <p class="modal-header">Напишите нам</p>
         <?= $this->render('../site/_formFeedback', ['model' => $feedbackModel]) ?>
     </div>
 </div>

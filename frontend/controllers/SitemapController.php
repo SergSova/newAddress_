@@ -41,9 +41,8 @@
                 }
 
                 $xml_sitemap = $this->renderPartial('index', ['host' => Yii::$app->request->hostInfo, 'urls' => $urls]);
-//                Yii::$app->cache->set('sitemap', $xml_sitemap, 3600*12);
             }
-            Yii::$app->response->format = Response::FORMAT_XML;
+//            Yii::$app->response->format = Response::FORMAT_XML;
 
             return $xml_sitemap;
         }
