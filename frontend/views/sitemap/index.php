@@ -6,9 +6,9 @@
     <?php foreach($urls as $url): ?>
         <url>
             <loc><?= $host.$url['loc'] ?></loc>
-            <lastmod><?= isset($url['lastmod'])?date('Y-m-d H:m:s Z', $url['lastmod']):''?></lastmod>
-            <changefreq><?= $url['changefreq'] ?></changefreq>
-            <priority>0.5</priority>
+            <?php if(isset($url['lastmod'])): ?>
+                <lastmod><?= date(DATE_W3C, $url['lastmod']) ?></lastmod>
+            <?php endif; ?>
         </url>
     <?php endforeach; ?>
 </urlset>

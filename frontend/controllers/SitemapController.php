@@ -27,7 +27,7 @@
                     $urls[] = [
                         'loc'        => Url::to(['site/realty', 'id' => $item->id]),
                         'lastmod'    => $item->update_at,
-                        'changefreq' => 'weekly',
+                        //'changefreq' => 'weekly',
                     ];
                 }
 
@@ -36,7 +36,7 @@
                     $urls[] = [
                         'loc'        => Url::to(['site/service', 'id' => $item->id]),
                         'lastmod'    => $item->update_at,
-                        'changefreq' => 'monthly',
+                        //'changefreq' => 'monthly',
                     ];
                 }
 
