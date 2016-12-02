@@ -8,6 +8,7 @@
     /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="col-lg-6">
+    <?= $this->render('_seo', ['model' => $model, 'form' => $form])?>
     <div class="house-form">
         <div class="panel panel-primary">
             <div class="panel-heading">Характеристики Квартиры</div>

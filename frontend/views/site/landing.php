@@ -179,10 +179,14 @@ JS;
 
 <!-- sidebar -->
 <ul class="mysidebar table-of-contents" id="scrollbar">
-    <li><a href="#hero-box" class="tooltipped" data-position="left" data-delay="50" data-tooltip="О нас"></a></li>
+    <li><a href="#hero-box"></a></li>
     <li><a href="#map-box" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Карта"></a></li>
+    <?php if(!empty($hotRealties)):?>
     <li><a href="#hot-box" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Горячие предложения"></a></li>
+    <?php endif;?>
+    <?php if($videoReview):?>
     <li><a href="#videoreview-box" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Видео обзор"></a></li>
+    <?php endif;?>
     <li><a href="#about" class="tooltipped" data-position="left" data-delay="50" data-tooltip="О нас"></a></li>
     <li><a href="#contacts" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Контакты"></a></li>
 </ul>

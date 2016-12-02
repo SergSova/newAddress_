@@ -13,14 +13,9 @@
     use yii\widgets\MaskedInput;
     use yii\widgets\Pjax;
 
-    $name = $realty->address;
-//    $name = substr($name, strpos($name, ' ')+1);
-//    $name = substr($name, 0, strpos($name, ' '));
-//    $name = str_replace('.','',$name);
-
-    preg_match('/[\s|.]([[:upper:]]\w+)/u',$name, $match);
-//todo заменить окончание слова
-    $this->title = 'Купить '.$realty->realtyType->name.' '.$match[1].' от застройщика';
+    $this->title = (!empty($realty->seo_title)) ? $realty->seo_title : $realty->address;
+    $this->registerMetaTag(['name' => 'keywords', 'content' => $realty->seo_keywords]);
+    $this->registerMetaTag(['name' => 'description', 'content' => $realty->seo_description]);
     RealtyAsset::register($this);
 
     $coord = explode(';', $realty->map_coord);
@@ -70,9 +65,6 @@ JS;
             <div class="col s12 m6 l3 push-l6 realty-code">
                 <span class="chip">Код недвижимости: <?= $realty->id ?></span>
             </div>
-            <div class="col s12 m12 l3 center">
-                <h2 class="realty-title"><?= Yii::$app->params['realties']['realtyType'][$realtyTypeName] ?></h2>
-            </div>
         </div>
         <div class="row">
             <br>
@@ -118,6 +110,9 @@ JS;
             </div>
             <div class="col s12 m12 l6 pull-l6 realty">
                 <div class="center-on-small-only">
+                    <?php if(!empty($realty->seo_header)):?>
+                        <h1 class="truncate realty-header"><?= $realty->seo_header?></h1>
+                    <?php endif;?>
                     <p class="title"><?= $realty->address ?></p>
 
                     <?php if($realty->newPrice): ?>
@@ -153,7 +148,7 @@ JS;
                 <?php endif ?>
 
                 <div class="divider"></div>
-                <p class="flow-text"><?= $realty->br_short_description ?></p>
+                <?= $realty->short_description ?>
                 <div class="divider"></div>
                 <?= $this->render('_view'.ucfirst($realtyTypeName), ['model' => $realty->$realtyTypeName]) ?>
             </div>
@@ -161,8 +156,8 @@ JS;
     </div>
 </div>
 <div class="section">
-    <div class="container">
-        <p class="flow-text text-justify"><?= $realty->br_full_description ?></p>
+    <div class="container realty-info">
+        <?= $realty->full_description ?>
     </div>
 </div>
 <div class="section map-wrapper fullHeight">

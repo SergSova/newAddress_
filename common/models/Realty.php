@@ -25,6 +25,10 @@
      * @property string        $status
      * @property integer       $create_at
      * @property integer       $update_at
+     * @property string        $seo_title
+     * @property string        $seo_keywords
+     * @property string        $seo_description
+     * @property string        $seo_header
      *
      *
      * @property ActionModel[] $actionModels
@@ -85,7 +89,7 @@
                         'address',
                         'map_coord',
                         'short_description',
-                        'full_description'
+                        'full_description',
                     ],
                     'required'
                 ],
@@ -93,7 +97,11 @@
                     [
                         'short_description',
                         'full_description',
-                        'status'
+                        'status',
+                        'seo_title',
+                        'seo_keywords',
+                        'seo_description',
+                        'seo_header'
                     ],
                     'string'
                 ],
@@ -285,7 +293,7 @@
         }
 
         public function getBr_short_description(){
-            return nl2br($this->short_description);
+            return $this->short_description;
         }
         public function getBr_full_description(){
             return nl2br($this->full_description);
