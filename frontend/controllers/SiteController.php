@@ -32,34 +32,34 @@
                         'service-call' => ['post'],
                     ],
                 ],
-//                [
-//                    'class' => PageCache::className(),
-//                    'only' => ['index', 'catalog'],
-//                    'duration' => 3600 * 24 * 30,
-//                    'dependency' => [
-//                        'class' => ChainedDependency::className(),
-//                        'dependencies' => [
-//                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
-//                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
-//                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.ActionModel::tableName()]),
-//                        ],
-//                    ],
-//                    'variations' => [isset(Yii::$app->request->queryParams) ? Yii::$app->request->queryParams : null]
-//                ],
-//                [
-//                    'class' => HttpCache::className(),
-//                    'only' => ['realty'],
-//                    'etagSeed' => function(){
-//                        $model = Realty::findOne(Yii::$app->request->get('id'));
-//
-//                        return serialize([
-//                                             $model->update_at,
-//                                             $model->getActions()
-//                                                   ->select('name')
-//                                                   ->column()
-//                                         ]);
-//                    }
-//                ],
+                [
+                    'class' => PageCache::className(),
+                    'only' => ['index', 'catalog'],
+                    'duration' => 3600 * 24 * 30,
+                    'dependency' => [
+                        'class' => ChainedDependency::className(),
+                        'dependencies' => [
+                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Realty::tableName()]),
+                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.Action::tableName()]),
+                            new DbDependency(['sql' => 'SELECT MAX(update_at) FROM '.ActionModel::tableName()]),
+                        ],
+                    ],
+                    'variations' => [isset(Yii::$app->request->queryParams) ? Yii::$app->request->queryParams : null]
+                ],
+                [
+                    'class' => HttpCache::className(),
+                    'only' => ['realty'],
+                    'etagSeed' => function(){
+                        $model = Realty::findOne(Yii::$app->request->get('id'));
+
+                        return serialize([
+                                             $model->update_at,
+                                             $model->getActions()
+                                                   ->select('name')
+                                                   ->column()
+                                         ]);
+                    }
+                ],
                 [
                     'class' => HttpCache::className(),
                     'only' => ['service'],
